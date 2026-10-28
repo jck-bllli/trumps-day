@@ -118,6 +118,12 @@ def link(u, label):
     return f'<a href="{html.escape(u)}" target="_blank" rel="noopener">{html.escape(label)}</a>'
 
 
+def nice_topic(t):
+    small = {"of", "the", "and", "a", "an", "in", "on", "to", "for", "at", "by", "with"}
+    w = t.lower().split()
+    return " ".join(x if (i and x in small) else x[:1].upper() + x[1:] for i, x in enumerate(w))
+
+
 def fmt_time(iso):
     return dt.datetime.fromisoformat(iso).astimezone(ET_TZ).strftime("%-I:%M %p")
 
@@ -129,7 +135,7 @@ def day_html(day, posts, open_):
     for q in day["quotes"]:
         srcs = " · ".join(link(s, f"source {i + 1}") for i, s in enumerate(q.get("sources", [])))
         again = f'<span class="tag">said before{": " + html.escape(q["said_before_note"]) if q.get("said_before_note") else ""}</span>' if q.get("said_before") else ""
-        parts.append(f'<li><p class="q">“{html.escape(q["quote"])}”</p><p class="meta">{html.escape(q["topic"].title())} · '
+        parts.append(f'<li><p class="q">“{html.escape(q["quote"])}”</p><p class="meta">{html.escape(nice_topic(q["topic"]))} · '
                      f'{html.escape(q["where"])} {again}<br>{srcs}</p></li>')
     parts.append("</ol>")
     sp = day.get("day_log", {}).get("speeches", [])
