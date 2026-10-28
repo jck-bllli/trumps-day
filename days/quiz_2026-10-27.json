@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-27",
+  "intro_say": "Did he say it? Three rounds. One quote is his, one isn't. Let's go!",
+  "outro_say": "How many did you get? Comment your score, and follow for tomorrow's round!",
+  "rounds": [
+    {
+      "answer": "A",
+      "A": {"quote": "We're thinking about renaming it the Trump Strait.", "who": "TRUMP · RALLY, OCT 27",
+            "source": "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"},
+      "B": {"quote": "Am considering taking Tesla private at $420. Funding secured.", "who": "ELON MUSK · TWEET, 2018",
+            "source": "https://techcrunch.com/2018/08/07/elon-musk-tesla-private-tweet"},
+      "reveal_say": "It's A! Trump said it yesterday, about the Strait of Hormuz.",
+      "other_say": "B was Elon Musk, in a twenty eighteen tweet."
+    },
+    {
+      "answer": "B",
+      "A": {"quote": "I have decided, in 2020, to run for president.", "who": "KANYE WEST · VMAs, 2015",
+            "source": "https://www.fox4news.com/news/kanye-west-i-have-decided-to-run-for-president"},
+      "B": {"quote": "I ended eight wars even though I didn't get the Nobel Prize.", "who": "TRUMP · RALLY, OCT 27",
+            "source": "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"},
+      "reveal_say": "It's B! Trump said it yesterday, in Corpus Christi.",
+      "other_say": "A was Kanye West, at the twenty fifteen VMAs."
+    },
+    {
+      "answer": "B",
+      "A": {"quote": "You think you just fell out of a coconut tree?", "who": "KAMALA HARRIS · 2023",
+            "source": "https://en.wikipedia.org/wiki/You_think_you_just_fell_out_of_a_coconut_tree%3F"},
+      "B": {"quote": "Maybe someday soon, it will become a prosperous 51st state.", "who": "TRUMP · ON VENEZUELA, OCT 27",
+            "source": "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"},
+      "reveal_say": "It's B! Trump said it yesterday, about Venezuela.",
+      "other_say": "A was Kamala Harris, in twenty twenty three."
+    }
+  ]
+}
