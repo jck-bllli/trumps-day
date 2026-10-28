@@ -32,6 +32,7 @@ def call(method, url, params=None):
             return json.loads(r.read())
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors="replace").replace(TOKEN, "[token]")
+        print(f"::error::Instagram API error {e.code}: {body[:500]}")
         sys.exit(f"Instagram API error {e.code}: {body}")
 
 
@@ -139,4 +140,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:  # surface the reason as a readable annotation
+        print(f"::error::{type(e).__name__}: {str(e).replace(TOKEN, '[token]')[:500]}")
+        raise
