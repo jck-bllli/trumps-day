@@ -3,7 +3,7 @@ name: Post daily recap
 on:
   push:
     branches: [main]
-    paths: ["queue.json"]        # the daily research job pushes a new day here -> post right away
+    paths: ["queue.json", "check_now.txt"]   # new day in queue.json -> post; editing check_now.txt -> test run only
   schedule:
     - cron: "23 15 * * *"        # backup: 15:23 UTC (8:23am PT / 11:23am ET) posts anything still waiting and refreshes the page
   workflow_dispatch:
@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
@@ -44,7 +46,8 @@ jobs:
             echo "::warning::IG_ACCESS_TOKEN secret is not set yet, so nothing was posted."
             exit 0
           fi
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" = "check" ]; then
+          if { [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" = "check" ]; } || \
+             { [ "${{ github.event_name }}" = "push" ] && ! git diff --name-only HEAD~1 HEAD | grep -qx queue.json; }; then
             python post_next.py --check
           else
             python post_next.py
