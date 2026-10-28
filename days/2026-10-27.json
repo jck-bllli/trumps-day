@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-27",
+  "intro_say": "Trump's day, in five quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's five!",
+  "quotes": [
+    {
+      "topic": "ON THE STRAIT OF HORMUZ",
+      "emoji": "🚢",
+      "where": "Rally · Corpus Christi, Texas",
+      "quote": "We're thinking about renaming it the Trump Strait.",
+      "intro_say": "On the Strait of Hormuz.",
+      "said_before": true,
+      "sfx": "ding",
+      "sources": [
+        "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/",
+        "https://gulfnews.com/world/americas/trump-floats-renaming-strait-of-hormuz-as-trump-strait-1.500661082"
+      ],
+      "said_before_note": "First floated in September 2026"
+    },
+    {
+      "topic": "ON VENEZUELA",
+      "emoji": "🇻🇪",
+      "where": "Rally · Corpus Christi, Texas",
+      "quote": "It will become a prosperous country, and who knows? Maybe someday soon, it will become a prosperous 51st state.",
+      "quote_say": "It will become a prosperous country, and who knows? Maybe someday soon, it will become a prosperous fifty-first state.",
+      "intro_say": "On Venezuela.",
+      "sfx": "stamp",
+      "sources": [
+        "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"
+      ]
+    },
+    {
+      "topic": "ON THE NOBEL PRIZE",
+      "emoji": "🏅",
+      "where": "Rally · Corpus Christi, Texas",
+      "quote": "I ended eight wars even though I didn't get the Nobel Prize.",
+      "intro_say": "On the Nobel Prize.",
+      "sfx": "chime",
+      "sources": [
+        "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"
+      ]
+    },
+    {
+      "topic": "ON KAMALA HARRIS",
+      "emoji": "🤷",
+      "where": "Rally · Corpus Christi, Texas",
+      "quote": "Nobody knows her last name, by the way.",
+      "intro_say": "On Kamala Harris.",
+      "sfx": "boing",
+      "sources": [
+        "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"
+      ]
+    },
+    {
+      "topic": "ON VENEZUELAN OIL",
+      "emoji": "🛢️",
+      "where": "Rally · Corpus Christi, Texas",
+      "quote": "He told me, you know how you find oil in Venezuela? You look on the ground.",
+      "intro_say": "And on Venezuela's oil, retelling a joke from oilman Harold Hamm.",
+      "sfx": "drumroll",
+      "sources": [
+        "https://singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day/"
+      ]
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {
+        "title": "Rally in Lubbock, Texas",
+        "transcript": "tommyxtopher.substack.com/p/trump-lubbock-texas-rally-full-video",
+        "video": ""
+      },
+      {
+        "title": "Rally in Corpus Christi, Texas",
+        "transcript": "singjupost.com/transcript-president-trump-speaks-at-corpus-christi-rally-one-week-before-election-day",
+        "video": ""
+      },
+      {
+        "title": "Both Texas rallies, livestream he shared",
+        "transcript": "",
+        "video": "youtube.com/live/inZ8qeJOpb8"
+      }
+    ]
+  }
+}

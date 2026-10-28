@@ -1,0 +1,94 @@
+name: Post daily recap
+
+on:
+  push:
+    branches: [main]
+    paths: ["queue.json"]        # the daily research job pushes a new day here -> post right away
+  schedule:
+    - cron: "23 15 * * *"        # backup: 15:23 UTC (8:23am PT / 11:23am ET) posts anything still waiting and refreshes the page
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check = test only, post = publish the newest day now"
+        required: true
+        default: check
+        type: choice
+        options: [check, post]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: post-recap
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Build the receipts page (every speech + post)
+        continue-on-error: true
+        run: python build_page.py
+
+      - name: Post (or check)
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          NEW_TOKEN_FILE: ${{ runner.temp }}/new_token
+        run: |
+          if [ -z "$IG_ACCESS_TOKEN" ]; then
+            echo "::warning::IG_ACCESS_TOKEN secret is not set yet, so nothing was posted."
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.mode }}" = "check" ]; then
+            python post_next.py --check
+          else
+            python post_next.py
+          fi
+
+      - name: Save renewed Instagram token
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          NEW_TOKEN_FILE: ${{ runner.temp }}/new_token
+        run: |
+          if [ -s "$NEW_TOKEN_FILE" ]; then
+            echo "::add-mask::$(cat "$NEW_TOKEN_FILE")"
+            if [ -z "$GH_TOKEN" ]; then
+              echo "::warning::Meta issued a new Instagram token but the GH_PAT secret is missing, so it could not be saved."
+            else
+              gh secret set IG_ACCESS_TOKEN --repo "$GITHUB_REPOSITORY" < "$NEW_TOKEN_FILE"
+              echo "Saved the renewed token to IG_ACCESS_TOKEN." >> "$GITHUB_STEP_SUMMARY"
+            fi
+            rm -f "$NEW_TOKEN_FILE"
+          fi
+
+      - name: Remove posted videos older than 14 days (keeps the repo small)
+        if: always()
+        run: |
+          python - <<'EOF'
+          import datetime as dt, json, os
+          cutoff = (dt.date.today() - dt.timedelta(days=14)).isoformat()
+          done = {p["id"] for p in json.load(open("posted.json"))}
+          for q in json.load(open("queue.json")):
+              if q["id"] in done and q["id"] < cutoff:
+                  for k in ("video", "cover"):
+                      if q.get(k) and os.path.exists(q[k]):
+                          os.remove(q[k]); print("removed", q[k])
+          EOF
+
+      - name: Save results
+        if: always()
+        run: |
+          git config user.name "trumpsday-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A posted.json docs data videos
+          if ! git diff --cached --quiet; then
+            git commit -m "Update receipts page and post log"
+            git pull --rebase --autostash
+            git push
+          fi

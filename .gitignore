@@ -1,0 +1,4 @@
+__pycache__/
+render/tts_model/
+render/fonts/NotoColorEmoji.ttf
+.env
