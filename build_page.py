@@ -197,7 +197,7 @@ footer{color:#fff;text-align:center;font-size:13px;opacity:.9;margin-top:28px}
 def main():
     fetch = "--no-fetch" not in sys.argv
     os.makedirs(os.path.join(ROOT, "data", "posts"), exist_ok=True)
-    days = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(ROOT, "days", "*.json")), reverse=True)]
+    days = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(ROOT, "days", "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json")), reverse=True)]
     today = dt.datetime.now(ET_TZ).date()
     blocks = []
     for i, day in enumerate(days):
