@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-28",
+  "intro_say": "Trump's day, in five quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's five!",
+  "quotes": [
+    {
+      "topic": "ON A $5,000 CHECK",
+      "emoji": "💵",
+      "where": "Rally · Chillicothe, Ohio",
+      "quote": "If Republicans win the House of Representatives and the Senate, I am going to give all adult citizens in the United States $5,000.",
+      "quote_say": "If Republicans win the House of Representatives and the Senate, I am going to give all adult citizens in the United States five thousand dollars.",
+      "intro_say": "On a five thousand dollar check.",
+      "sfx": "cash",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full",
+                  "https://www.opb.org/article/2026/09/10/trump-promises-dollar5000-payment-if-republicans-win-midterms/"],
+      "said_before": true,
+      "said_before_note": "First promised in September 2026"
+    },
+    {
+      "topic": "ON TELEPROMPTERS",
+      "emoji": "📜",
+      "where": "Rally · Chillicothe, Ohio",
+      "quote": "Isn't it nice to have a president who doesn't need a teleprompter?",
+      "intro_say": "On a windy rally where his teleprompters blew away.",
+      "sfx": "boing",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full"]
+    },
+    {
+      "topic": "ON HIS COGNITIVE TEST",
+      "emoji": "🧠",
+      "where": "Rally · Chillicothe, Ohio",
+      "quote": "I passed it all three times. I aced it. Zero mistakes all three times.",
+      "intro_say": "On his cognitive test.",
+      "sfx": "cheer",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full",
+                  "https://newsweek.com/trump-touts-his-intelligence-ohio-rally-now-they-dont-call-me-stupid-1700405"],
+      "said_before": true,
+      "said_before_note": "He has talked about acing the test for years"
+    },
+    {
+      "topic": "ON CANADA",
+      "emoji": "🇨🇦",
+      "where": "Rally · Chillicothe, Ohio",
+      "quote": "Oh, Canada has been ripping us off for many, many years.",
+      "intro_say": "On Canada.",
+      "sfx": "gavel",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full"]
+    },
+    {
+      "topic": "ON MISS UNIVERSE",
+      "emoji": "👑",
+      "where": "Rally · Chillicothe, Ohio",
+      "quote": "You know, I owned the Miss Universe contest long ago.",
+      "intro_say": "And, out of nowhere, on Miss Universe.",
+      "sfx": "chime",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full"]
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {"title": "Press gaggle before the Ohio trip", "transcript": "tommyxtopher.substack.com/p/trump-gaggle-before-ohio-rally-october", "video": ""},
+      {"title": "Rally in Chillicothe, Ohio (video on the same page)", "transcript": "tommyxtopher.substack.com/p/trump-ohio-rally-10-28-2026-full", "video": ""}
+    ]
+  }
+}
