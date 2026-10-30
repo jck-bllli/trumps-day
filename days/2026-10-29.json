@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-29",
+  "intro_say": "Trump's day, in five quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's five!",
+  "quotes": [
+    {
+      "topic": "ON THE MIDTERMS",
+      "emoji": "🗳️",
+      "where": "Rally · Rock Hill, South Carolina",
+      "quote": "Pretend that I'm on the ballot. Because when I'm on the ballot, for whatever reason, 49.2% more people show up.",
+      "quote_say": "Pretend that I'm on the ballot. Because when I'm on the ballot, for whatever reason, forty-nine point two percent more people show up.",
+      "intro_say": "On the midterms.",
+      "sfx": "drumroll",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina",
+                  "https://www.postandcourier.com/politics/donald-trump-darline-graham-rock-hill-sc-rally-midterms/article_faaf7200-7ddf-424e-86b5-aa8d1e40f30f.html"]
+    },
+    {
+      "topic": "ON LONG SPEECHES",
+      "emoji": "🎤",
+      "where": "Rally · Rock Hill, South Carolina",
+      "quote": "I always wait for people to start leaving, but they never leave.",
+      "intro_say": "On how long his speeches run.",
+      "sfx": "boing",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina"],
+      "said_before": true,
+      "said_before_note": "He made the same boast at 2024 rallies"
+    },
+    {
+      "topic": "ON A PROTESTER",
+      "emoji": "📢",
+      "where": "Rally · Rock Hill, South Carolina",
+      "quote": "Paid protester. They pop up every once in a while. Don't worry about it.",
+      "intro_say": "On a protester in the crowd.",
+      "sfx": "boing",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina",
+                  "https://www.foxnews.com/live-news/midterm-elections-2026-trump-south-carolina-ohio-october-29"]
+    },
+    {
+      "topic": "ON ECONOMISTS",
+      "emoji": "📈",
+      "where": "Rally · Rock Hill, South Carolina",
+      "quote": "They don't know what the hell they're doing, economists.",
+      "intro_say": "On economists, after new growth numbers.",
+      "sfx": "cash",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina"]
+    },
+    {
+      "topic": "ON THE PRESS",
+      "emoji": "📰",
+      "where": "Rally · Rock Hill, South Carolina",
+      "quote": "They are fake news, you're fake news, do you understand that?",
+      "intro_say": "And on news coverage of crowd sizes.",
+      "sfx": "gavel",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina"]
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {"title": "Rally in Rock Hill, South Carolina", "transcript": "tommyxtopher.substack.com/p/trump-rally-in-rock-hill-south-carolina", "video": "wistv.com/video/2026/10/29/full-speech-president-trump-speaks-rock-hill-rally/"},
+      {"title": "Remarks to reporters before boarding Air Force One", "transcript": "", "video": ""},
+      {"title": "Truth Social video post on the midterms", "transcript": "trumpstruth.org/statuses/42851", "video": ""}
+    ]
+  }
+}
