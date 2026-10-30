@@ -33,6 +33,36 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Backup render in the cloud (only if the home PC has not rendered the newest day)
+        if: github.event_name == 'schedule'
+        id: fallback
+        run: |
+          python - <<'EOF'
+          import glob, json, os, sys
+          days = sorted(glob.glob("days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json"))
+          queued = {q["id"] for q in json.load(open("queue.json"))}
+          need = bool(days) and os.path.basename(days[-1])[:-5] not in queued
+          open(os.environ["GITHUB_OUTPUT"], "a").write(f"need={'yes' if need else ''}\n")
+          EOF
+
+      - name: Install render tools (backup only)
+        if: steps.fallback.outputs.need
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          bash render/setup.sh
+
+      - name: Render the newest day (backup only)
+        if: steps.fallback.outputs.need
+        run: |
+          echo "::warning::The home PC did not render the newest day, so the cloud rendered it instead. Check the PC is on and its runner is Idle."
+          python render_next.py
+          git config user.name "trumpsday-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add videos queue.json
+          git commit -m "Backup render in the cloud"
+          git pull --rebase --autostash
+          git push   # the video must be on GitHub before Instagram can fetch it
+
       - name: Build the receipts page (every speech + post)
         continue-on-error: true
         run: python build_page.py
@@ -89,7 +119,7 @@ jobs:
         run: |
           git config user.name "trumpsday-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add -A posted.json docs data videos
+          git add -A posted.json queue.json docs data videos
           if ! git diff --cached --quiet; then
             git commit -m "Update receipts page and post log"
             git pull --rebase --autostash

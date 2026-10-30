@@ -1,0 +1,57 @@
+name: Render on home PC
+
+on:
+  push:
+    branches: [main]
+    paths: ["days/*.json"]   # a new day file from the research task -> render it on the PC, then post
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write   # lets this job start the post workflow when the video is ready
+
+concurrency:
+  group: render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: [self-hosted, render-pc]   # Jack's home PC; if it is offline the 8:23am PT backup renders in the cloud
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONUTF8: "1"   # Windows defaults to cp1252; the day files have emoji and curly quotes
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          clean: false   # keep the downloaded voice model and emoji font between runs
+
+      - name: Setup (fast after the first run)
+        run: bash render/setup.sh
+
+      - name: Render the newest day
+        id: render
+        run: python render_next.py
+
+      - name: Save the video and queue
+        if: steps.render.outputs.rendered
+        run: |
+          git config user.name "trumpsday-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add videos queue.json
+          git commit -m "Render ${{ steps.render.outputs.rendered }} on home PC"
+          git pull --rebase --autostash
+          git push
+
+      - name: Start the post workflow
+        if: steps.render.outputs.rendered
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/post.yml/dispatches" \
+            -d '{"ref":"main","inputs":{"mode":"post"}}'
+          echo "Rendered ${{ steps.render.outputs.rendered }} on the home PC and started posting." >> "$GITHUB_STEP_SUMMARY"
