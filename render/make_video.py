@@ -411,12 +411,12 @@ def build_caption(data):
     import datetime as _dt
     qs, log = data["quotes"], data.get("day_log", {})
     d = _dt.date.fromisoformat(data["date"])
-    lines = [f"Trump's day in {len(qs)} quotes ({d.strftime('%A, %B %-d')}) 🇺🇸",
+    lines = [f"Trump's day in {len(qs)} quotes ({d:%A, %B} {d.day}) 🇺🇸",
              "Love it or hate it? Tell us which one got you 👇", ""]
     for i, q in enumerate(qs):
         tag = " (said before)" if q.get("said_before") else ""
         lines.append(f"{i + 1}. “{q['quote']}”{tag}\n   📍 {q['where']}")
-    lines += ["", f"📜 EVERYTHING HE SAID ON {d.strftime('%b %-d').upper()}"]
+    lines += ["", f"📜 EVERYTHING HE SAID ON {d.strftime('%b').upper()} {d.day}"]
     for sp in log.get("speeches", []):
         lines.append(f"🎤 {sp['title']}")
         if sp.get("transcript"):
