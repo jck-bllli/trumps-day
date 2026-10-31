@@ -9,7 +9,9 @@ Run render/setup.sh once per machine first.
 import datetime as dt
 import json
 import os
+import re
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -46,6 +48,18 @@ def validate(day):
         sys.exit("Day file problems:\n  " + "\n  ".join(errs))
 
 
+def check_audio(video):
+    """Stop before queueing a Reel that would post without sound."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", video, "-map", "0:a:0", "-af", "volumedetect",
+                        "-f", "null", "-"], capture_output=True, text=True)
+    m = re.search(r"mean_volume: (-?[\d.]+) dB", r.stderr)
+    if not m:
+        sys.exit(f"{video} has no audio track, so it would post silent. Not queueing it.")
+    if float(m.group(1)) < -40:
+        sys.exit(f"{video} audio is near silent ({m.group(1)} dB mean), so it would post silent. Not queueing it.")
+    print(f"Audio check passed ({m.group(1)} dB mean)")
+
+
 def main():
     path = sys.argv[1]
     dry = "--dry-run" in sys.argv
@@ -56,6 +70,7 @@ def main():
     work = tempfile.mkdtemp(prefix="trumpsday_")
     out = os.path.join(work, f"{day['date']}.mp4")
     make_video.main(path, out)
+    check_audio(out)
     caption = open(os.path.splitext(out)[0] + "_caption.txt").read()
     if dry:
         print(f"Dry run done: {out}\n\n{caption}")
