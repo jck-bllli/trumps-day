@@ -40,6 +40,15 @@ jobs:
           [ -x .venv/Scripts/python.exe ] || python -m venv .venv
           cygpath -w "$PWD/.venv/Scripts" >> "$GITHUB_PATH"
 
+      - name: Find ffmpeg
+        # the runner service does not always see the PATH change from the ffmpeg install, so look in winget's folder too
+        run: |
+          if command -v ffmpeg >/dev/null; then command -v ffmpeg; exit 0; fi
+          d=$(ls -d "/c/Program Files/WinGet/Packages"/Gyan.FFmpeg*/*/bin 2>/dev/null | head -1)
+          [ -n "$d" ] || { echo "::error::ffmpeg is not installed on the home PC"; exit 1; }
+          echo "using $d"
+          cygpath -w "$d" >> "$GITHUB_PATH"
+
       - name: Setup (fast after the first run)
         run: bash render/setup.sh
 
