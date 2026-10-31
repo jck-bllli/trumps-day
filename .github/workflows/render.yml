@@ -47,10 +47,14 @@ jobs:
           d=$(ls -d "/c/Program Files/WinGet/Packages"/Gyan.FFmpeg*/*/bin 2>/dev/null | head -1)
           [ -n "$d" ] || { echo "::error::ffmpeg is not installed on the home PC"; exit 1; }
           echo "using $d"
+          "$d/ffmpeg.exe" -hide_banner -version | head -1
           cygpath -w "$d" >> "$GITHUB_PATH"
 
       - name: Setup (fast after the first run)
-        run: bash render/setup.sh
+        run: |
+          echo "$PATH" | tr ':' '\n' | grep -i -e ffmpeg -e venv || echo "no ffmpeg/venv on PATH"
+          command -v ffmpeg python pip || true
+          bash render/setup.sh
 
       - name: Test render (commits and posts nothing)
         if: inputs.test
