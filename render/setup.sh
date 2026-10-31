@@ -1,6 +1,6 @@
 #!/bin/bash
 # One-time setup on a fresh Linux machine: Python packages, the Kokoro voice model (~350 MB, from GitHub)
-# and the color emoji font. Needs ffmpeg with the rubberband filter.
+# (the color emoji font is committed in render/fonts). Needs ffmpeg with the rubberband filter.
 set -e
 cd "$(dirname "$0")"
 pip install --break-system-packages -q kokoro-onnx soundfile scipy pillow numpy 2>/dev/null \
