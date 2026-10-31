@@ -34,6 +34,12 @@ jobs:
         with:
           clean: false   # keep the downloaded voice model and emoji font between runs
 
+      - name: Python environment for this repo
+        # each repo gets its own venv, so the two runners never pip-install into the same folder at once
+        run: |
+          [ -x .venv/Scripts/python.exe ] || python -m venv .venv
+          cygpath -w "$PWD/.venv/Scripts" >> "$GITHUB_PATH"
+
       - name: Setup (fast after the first run)
         run: bash render/setup.sh
 
