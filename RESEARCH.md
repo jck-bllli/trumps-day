@@ -75,16 +75,15 @@ Field notes:
 - `day_log.speeches`: every event from step 1. Links are written without `https://` (they show as plain text in
   the caption); empty string if none. `post_count` is optional (only if a source states it).
 
-## 4. Render, check, push
+## 4. Check and push (the home PC renders)
 
 ```bash
-bash render/setup.sh                 # once per machine
-python3 produce.py days/DATE.json    # validates, voices, renders, adds to queue.json
+python3 -c "import json,produce; produce.validate(json.load(open('days/DATE.json')))"
 ```
 
-Fix anything the validator reports. Then extract 2 frames (one mid-quote, the end card) with ffmpeg and look at
-them: text fits, nothing overlaps. Check the caption in queue.json is under 2,200 characters.
+Fix anything the validator reports. Do not render: Jack's home PC does that.
 
-Commit `days/DATE.json`, `videos/DATE.mp4`, `videos/DATE_cover.jpg` and `queue.json`, then
-`git pull --rebase` and push to main. The push triggers the GitHub Actions workflow, which builds the receipts
-page and posts to Instagram. Do not post to Instagram yourself, and don't edit posted.json, the workflow or secrets.
+Commit only `days/DATE.json`, then `git pull --rebase` and push to main. The push starts `render.yml` on the
+home PC, which renders the video, adds it to queue.json and starts the post workflow. If the PC is offline, the
+8:23am PT backup run renders in the cloud and posts. Do not post to Instagram yourself, and don't edit
+posted.json, queue.json, the workflows or secrets.
