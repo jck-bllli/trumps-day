@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-30",
+  "intro_say": "Trump's day, in five quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's five!",
+  "quotes": [
+    {
+      "topic": "ON THE CAMPAIGN GRIND",
+      "emoji": "😮‍💨",
+      "where": "Rally · Daytona Beach, Florida",
+      "quote": "I thought this was gonna be my last one, Byron. I thought this was it. I thought I could relax. 28 days in a row of this crap is a lot.",
+      "quote_say": "I thought this was gonna be my last one, Byron. I thought this was it. I thought I could relax. Twenty-eight days in a row of this crap is a lot.",
+      "intro_say": "On the final stretch of the campaign, speaking to Byron Donalds.",
+      "sfx": "boing",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30",
+                  "https://www.cbsnews.com/miami/news/trump-daytona-beach-florida-rally-2026-midterm-elections/"]
+    },
+    {
+      "topic": "ON FOX NEWS",
+      "emoji": "📺",
+      "where": "Rally · Daytona Beach, Florida",
+      "quote": "Fox is giving Democrats more time than they give Republicans.",
+      "intro_say": "On Fox News.",
+      "sfx": "ding",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30",
+                  "https://wltreport.com/2026/10/31/trump-unloads-on-fox-news-for-giving-democrats-more-airtime-than-republicans"]
+    },
+    {
+      "topic": "ON DAVID JOLLY",
+      "emoji": "🎯",
+      "where": "Rally · Daytona Beach, Florida",
+      "quote": "David Jolly, a real loser. But a terrible person. Everybody hated the guy.",
+      "intro_say": "On David Jolly, the Democrat running for Florida governor.",
+      "sfx": "boing",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30"]
+    },
+    {
+      "topic": "ON CROWD SIZES",
+      "emoji": "🏟️",
+      "where": "Rally · Daytona Beach, Florida",
+      "quote": "I had like close to 50,000. He had 900. They don't want to mention my crowd size.",
+      "quote_say": "I had like close to fifty thousand. He had nine hundred. They don't want to mention my crowd size.",
+      "intro_say": "On his crowds versus Bernie Sanders.",
+      "sfx": "cheer",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30"]
+    },
+    {
+      "topic": "ON YOUR 401(K)",
+      "emoji": "💰",
+      "where": "Rally · Daytona Beach, Florida",
+      "quote": "Go and check your 401(k)s. Your 401(k)s are up 69%, 72%, 57%, 79%.",
+      "quote_say": "Go and check your four oh one k's. Your four oh one k's are up sixty-nine percent, seventy-two percent, fifty-seven percent, seventy-nine percent.",
+      "intro_say": "And on the stock market.",
+      "sfx": "cash",
+      "sources": ["https://tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30"]
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {"title": "Rally in Daytona Beach, Florida", "transcript": "tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30", "video": "tommyxtopher.substack.com/p/trump-daytona-florida-rally-10-30"},
+      {"title": "Oval Office event with freed American Stephen Hubbard", "transcript": "", "video": ""},
+      {"title": "Truth Social video post", "transcript": "trumpstruth.org/statuses/42895", "video": ""}
+    ]
+  }
+}
