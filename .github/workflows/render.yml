@@ -41,14 +41,16 @@ jobs:
           cygpath -w "$PWD/.venv/Scripts" >> "$GITHUB_PATH"
 
       - name: Find ffmpeg
-        # the runner service does not always see the PATH change from the ffmpeg install, so look in winget's folder too
+        # the runner service may not see ffmpeg on PATH, so look in the usual install folders too
         run: |
-          if command -v ffmpeg >/dev/null; then command -v ffmpeg; exit 0; fi
-          d=$(ls -d "/c/Program Files/WinGet/Packages"/Gyan.FFmpeg*/*/bin 2>/dev/null | head -1)
-          [ -n "$d" ] || { echo "::error::ffmpeg is not installed on the home PC"; exit 1; }
-          echo "using $d"
-          "$d/ffmpeg.exe" -hide_banner -version | head -1
-          cygpath -w "$d" >> "$GITHUB_PATH"
+          for d in /c/ffmpeg/bin "/c/Program Files/WinGet/Packages"/Gyan.FFmpeg*/*/bin; do
+            if [ -f "$d/ffmpeg.exe" ]; then
+              "$d/ffmpeg.exe" -hide_banner -version | head -1
+              cygpath -w "$d" >> "$GITHUB_PATH"
+              exit 0
+            fi
+          done
+          command -v ffmpeg || { echo "::error::ffmpeg is not installed on the home PC"; exit 1; }
 
       - name: Setup (fast after the first run)
         run: |
