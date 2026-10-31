@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths: ["days/*.json"]   # a new day file from the research task -> render it on the PC, then post
   workflow_dispatch:
+    inputs:
+      test:
+        description: "Test only: render the newest day to a temp folder and attach it to the run (commits and posts nothing)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,7 +36,24 @@ jobs:
       - name: Setup (fast after the first run)
         run: bash render/setup.sh
 
+      - name: Test render (commits and posts nothing)
+        if: inputs.test
+        run: |
+          day=$(ls days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json | sort | tail -1)
+          start=$(date +%s)
+          python produce.py "$day" --dry-run | tee test.log
+          out=$(sed -n 's/^Dry run done: //p' test.log)
+          mkdir -p test-render && cp "$out" test-render/
+          echo "Test render of $day took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: inputs.test
+        with:
+          name: test-render
+          path: test-render/
+
       - name: Render the newest day
+        if: ${{ !inputs.test }}
         id: render
         run: python render_next.py
 
