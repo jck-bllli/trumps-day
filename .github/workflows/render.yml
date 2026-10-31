@@ -25,7 +25,8 @@ jobs:
     timeout-minutes: 60
     defaults:
       run:
-        shell: bash
+        # Git Bash by full path: plain "bash" resolves to the WSL stub in System32 for the runner service
+        shell: C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail {0}
     env:
       PYTHONUTF8: "1"   # Windows defaults to cp1252; the day files have emoji and curly quotes
     steps:
