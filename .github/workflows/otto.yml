@@ -23,6 +23,7 @@ jobs:
       - name: Rank our styles by attention
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          OTTO_DEFAULT_STYLE: sticker   # posts from before style tags
         run: python otto/styles.py
       - name: Save report
         run: |

@@ -7,8 +7,8 @@ and writes otto/report.md + otto/stats.json ranking styles.
 Style tag lookup (first match wins):
   1. "style" on the posted.json entry
   2. "style" on the queue.json item with the same id
-  3. "style" in days/<id>.json (trumps-day)
-  otherwise "untagged"
+  3. days/<date>.json "styles"[am|pm] for ids like DATE-am, else its "style" (trumps-day)
+  otherwise $OTTO_DEFAULT_STYLE (default "untagged")
 
 Outlier score = a post's views / the account's median views (2.0 = twice normal).
 Needs the secret IG_ACCESS_TOKEN (same one the posting workflow uses). Posts nothing.
@@ -64,10 +64,15 @@ def style_of(entry, queue):
     for item in queue:
         if isinstance(item, dict) and item.get("id") == entry.get("id") and item.get("style"):
             return item["style"]
-    day = load(f"days/{entry.get('id')}.json", {})
-    if isinstance(day, dict) and day.get("style"):
-        return day["style"]
-    return "untagged"
+    pid = str(entry.get("id", ""))
+    date, _, slot = pid.rpartition("-") if pid.endswith(("-am", "-pm")) else (pid, "", "")
+    day = load(f"days/{date}.json", {})
+    if isinstance(day, dict):
+        if slot and isinstance(day.get("styles"), dict) and day["styles"].get(slot):
+            return day["styles"][slot]
+        if day.get("style"):
+            return day["style"]
+    return os.environ.get("OTTO_DEFAULT_STYLE", "untagged")
 
 
 def main():
