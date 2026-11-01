@@ -504,22 +504,22 @@ def main(post_path, out):
     sf.write(wav, np.column_stack([mix, mix]).astype(np.float32), SR)
 
     bg = photo_bgs(post.get("photo_path")) if style == "photo" else make_bg(style)
-    gr = grains()
+    gr = grains(1)  # static grain: moving noise makes the file several times bigger
     proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                              "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", wav,
-                             "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
-                             "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
+                             "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-maxrate", "8M", "-bufsize", "16M",
+                             "-pix_fmt", "yuv420p", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "128k", "-ar", "48000",
                              "-movflags", "+faststart", "-shortest", out], stdin=subprocess.PIPE)
     cover, cache = None, {}
     for fi in range(int(total * FPS)):
         t = fi / FPS
         ev = next((e for e in events if e[0] <= t < e[1]), events[-1])
         st = frame_state(ev, t)
-        key = (id(ev), st["shown"], st.get("timer") and round(st["timer"], 2), round(st["opt_t"], 2), fi % 8 // 2)
+        key = (id(ev), st["shown"], st.get("timer") and round(st["timer"], 2), round(st["opt_t"], 2))
         if key not in cache:
             if len(cache) > 64:
                 cache.clear()
-            cache[key] = draw_frame(style, bg, gr[fi % 8 // 2], st).tobytes()
+            cache[key] = draw_frame(style, bg, gr[0], st).tobytes()
         if cover is None and ev is events[0] and st["shown"] >= len(st["toks"]):
             cover = Image.frombytes("RGB", (W, H), cache[key])
         proc.stdin.write(cache[key])

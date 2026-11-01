@@ -66,6 +66,7 @@ jobs:
         if: inputs.test
         env:
           DAY: ${{ inputs.day }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           day="$DAY"
           [ -n "$day" ] || day=$(ls days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json | sort | tail -1)
@@ -73,6 +74,16 @@ jobs:
           python produce.py "$day" --dry-run --all-styles | tee test.log
           mkdir -p test-render
           sed -n 's/^Dry run done: \([^ ]*\).*/\1/p' test.log | while read -r out; do cp "$out" "${out%.mp4}"_cover.jpg test-render/ 2>/dev/null || cp "$out" test-render/; done
+          # small previews on the test-previews branch, so a cloud session can check them
+          mkdir -p prev
+          for f in test-render/*.mp4; do
+            ffmpeg -v error -y -i "$f" -vf scale=540:-2 -c:v libx264 -crf 28 -preset veryfast -c:a aac -b:a 96k "prev/$(basename "$f")"
+          done
+          cp test-render/*.jpg prev/ 2>/dev/null || true
+          ls -la test-render >> "$GITHUB_STEP_SUMMARY"
+          (cd prev && git init -q && git checkout -q -b test-previews && git add . \
+            && git -c user.name=trumpsday-bot -c user.email=actions@users.noreply.github.com commit -qm "Test previews" \
+            && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" test-previews)
           echo "Test render of $day took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
