@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post the newest unposted day from queue.json to Instagram (Instagram API with Instagram Login).
+"""Post the newest due, unposted item (morning or evening post) from queue.json to Instagram (Instagram API with Instagram Login).
 Days older than MAX_AGE_DAYS are skipped (marked in posted.json), so a backlog never posts stale recaps.
 
 Runs in GitHub Actions. Needs the secret IG_ACCESS_TOKEN.
@@ -45,18 +45,22 @@ def summary(text):
 
 
 def next_item():
+    """Newest item that is due (post_after has passed). Older due items are skipped so a backlog never
+    posts stale recaps; items whose time has not come yet are left alone."""
     import datetime as dt
-    queue = json.load(open("queue.json"))
+    queue = json.load(open("queue.json", encoding="utf-8"))
     posted = json.load(open("posted.json"))
     done = {p["id"] for p in posted}
-    todo = sorted((q for q in queue if q["id"] not in done), key=lambda q: q["id"])
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    todo = sorted((q for q in queue if q["id"] not in done and (q.get("post_after") or "") <= now),
+                  key=lambda q: q["id"])
     cutoff = (dt.datetime.utcnow() - dt.timedelta(hours=4) - dt.timedelta(days=MAX_AGE_DAYS)).date().isoformat()
-    for q in todo[:-1] + [q for q in todo[-1:] if q["id"] < cutoff]:
-        posted.append({"id": q["id"], "skipped": "a newer day was available" if q is not todo[-1] else "too old"})
+    for q in todo[:-1] + [q for q in todo[-1:] if q["id"][:10] < cutoff]:
+        posted.append({"id": q["id"], "skipped": "a newer post was available" if q is not todo[-1] else "too old"})
         summary(f"Skipping {q['id']} (stale)")
     if "--check" not in sys.argv:
         json.dump(posted, open("posted.json", "w"), indent=2)
-    return todo[-1] if todo and todo[-1]["id"] >= cutoff else None
+    return todo[-1] if todo and todo[-1]["id"][:10] >= cutoff else None
 
 
 def public_url(item, key="video"):
@@ -132,7 +136,7 @@ def main():
     media = call("POST", f"{API}/{ig_id}/media_publish", {"creation_id": container})["id"]
     link = call("GET", f"{API}/{media}", {"fields": "permalink"}).get("permalink", "")
     posted = json.load(open("posted.json"))
-    posted.append({"id": item["id"], "media_id": media, "permalink": link,
+    posted.append({"id": item["id"], "style": item.get("style", "sticker"), "media_id": media, "permalink": link,
                    "posted_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
     json.dump(posted, open("posted.json", "w"), indent=2)
     summary(f"✅ Posted {item['id']}: {link}")

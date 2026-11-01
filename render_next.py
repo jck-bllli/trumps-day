@@ -22,7 +22,7 @@ def main():
     newest = days[-1]
     date = os.path.splitext(os.path.basename(newest))[0]
     queued = {q["id"] for q in json.load(open(os.path.join(ROOT, "queue.json"), encoding="utf-8"))}
-    if date in queued:
+    if date in queued or f"{date}-am" in queued:
         print(f"{date} is already rendered and queued. Nothing to do.")
         return
     subprocess.run([sys.executable, os.path.join(ROOT, "produce.py"), newest], check=True, cwd=ROOT)

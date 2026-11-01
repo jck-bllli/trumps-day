@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-31",
+  "intro_say": "Trump's day, in five quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's five!",
+  "quotes": [
+    {
+      "topic": "ON HIS HALLOWEEN COSTUME",
+      "emoji": "🎃",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "I had 10 minutes, so I came as Donald Trump.",
+      "quote_say": "I had ten minutes, so I came as Donald Trump.",
+      "intro_say": "His Halloween costume, arriving at the Mar-a-Lago party.",
+      "sfx": "drumroll",
+      "sources": [
+        "https://tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party",
+        "https://www.wctv.tv/2026/11/01/president-trump-arrives-mar-a-lago-halloween-i-came-donald-trump/"
+      ],
+      "game": {
+        "type": "topic",
+        "options": [
+          "Being late to a debate",
+          "His Halloween costume",
+          "A last-minute speech"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "topic": "ON ALINA HABBA",
+      "emoji": "😤",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "I thought it was totally obnoxious and outrageous, and it's not acceptable. Not acceptable at all.",
+      "intro_say": "On a reported legal payment to his former lawyer Alina Habba.",
+      "sfx": "gavel",
+      "sources": [
+        "https://tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party",
+        "https://www.aol.com/articles/donald-trump-jokes-cheeky-halloween-031700000.html"
+      ],
+      "highlight": "totally obnoxious and outrageous"
+    },
+    {
+      "topic": "ON THE NEW ARCH",
+      "emoji": "🏛️",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "The arch is going to be more beautiful than the Arc de Triomphe.",
+      "intro_say": "On his planned arch in Washington.",
+      "sfx": "whoosh_up",
+      "sources": [
+        "https://tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party"
+      ],
+      "said_before": true,
+      "said_before_note": "Has compared it to the Paris arch since October 2025",
+      "game": {
+        "type": "blank",
+        "blank": "Arc de Triomphe",
+        "options": [
+          "Eiffel Tower",
+          "Taj Mahal",
+          "Arc de Triomphe"
+        ],
+        "answer": 2
+      }
+    },
+    {
+      "topic": "ON ANGIE NIXON",
+      "emoji": "🎯",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "Angie Nixon's a low IQ person and she shouldn't be running.",
+      "intro_say": "On Angie Nixon, the Democratic Senate candidate in Florida.",
+      "sfx": "boing",
+      "sources": [
+        "https://tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party"
+      ],
+      "highlight": "low IQ person"
+    },
+    {
+      "topic": "ON AMERICA'S WEALTH",
+      "emoji": "💰",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "We've made $25 trillion in wealth over the last, since I'm president, for the last 19 months, I guess",
+      "quote_say": "We've made twenty-five trillion dollars in wealth over the last, since I'm president, for the last nineteen months, I guess",
+      "intro_say": "And on the economy.",
+      "sfx": "cash",
+      "sources": [
+        "https://tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party"
+      ],
+      "game": {
+        "type": "number",
+        "blank": "$25 trillion",
+        "blank_say": "twenty-five trillion dollars",
+        "options": [
+          "$5 trillion",
+          "$25 trillion",
+          "$100 trillion"
+        ],
+        "answer": 1
+      }
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {
+        "title": "Remarks to press at the Mar-a-Lago Halloween party",
+        "transcript": "tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party",
+        "video": "tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party"
+      }
+    ]
+  },
+  "photo": {
+    "query": "Mar-a-Lago",
+    "match": "Mar-a-Lago"
+  }
+}
