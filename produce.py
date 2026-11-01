@@ -147,9 +147,12 @@ def main():
     queue = json.load(open(qpath, encoding="utf-8")) if os.path.exists(qpath) else []
     styles = {}
     photo_path, photo_credit = None, None
-    for slot, qs in split(day):
-        pid = f"{day['date']}-{slot}"
-        style = make_styled.pick_style(day["date"], slot)
+    jobs = [(slot, qs, make_styled.pick_style(day["date"], slot)) for slot, qs in split(day)]
+    if dry and "--all-styles" in sys.argv:  # test renders: every style once, alternating halves
+        halves = split(day)
+        jobs = [(halves[i % len(halves)][0], halves[i % len(halves)][1], st) for i, st in enumerate(make_styled.STYLES)]
+    for slot, qs, style in jobs:
+        pid = f"{day['date']}-{slot}-{style}" if dry else f"{day['date']}-{slot}"
         styles[slot] = style
         post = dict(date=day["date"], slot=slot, style=style, quotes=qs, day_log=day.get("day_log", {}))
         if style == "photo":

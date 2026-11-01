@@ -70,7 +70,7 @@ jobs:
           day="$DAY"
           [ -n "$day" ] || day=$(ls days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json | sort | tail -1)
           start=$(date +%s)
-          python produce.py "$day" --dry-run | tee test.log
+          python produce.py "$day" --dry-run --all-styles | tee test.log
           mkdir -p test-render
           sed -n 's/^Dry run done: \([^ ]*\).*/\1/p' test.log | while read -r out; do cp "$out" "${out%.mp4}"_cover.jpg test-render/ 2>/dev/null || cp "$out" test-render/; done
           echo "Test render of $day took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
