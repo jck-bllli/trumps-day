@@ -105,5 +105,9 @@
         "video": "tommyxtopher.substack.com/p/trump-mar-a-lago-halloween-party"
       }
     ]
+  },
+  "photo": {
+    "query": "Mar-a-Lago",
+    "match": "Mar-a-Lago"
   }
 }

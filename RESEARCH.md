@@ -50,6 +50,15 @@ Wrong options must be plausible but clearly wrong, real-sounding, and never inve
 anyone. Options are 28 characters max. `answer` is 0, 1 or 2 (vary it).
 - Optional `highlight`: an exact piece of the quote (2 to 6 words) to mark in red, the most striking part.
 
+## 2c. Pick a background photo (for the photo style)
+
+Add a top-level `"photo"` showing where he spoke (venue, city, or the White House): either
+`{"file": "File:Exact name.jpg"}` for a specific Wikimedia Commons file, or
+`{"query": "Mar-a-Lago aerial", "match": "Mar-a-Lago"}` (the PC searches Commons and keeps the first image whose
+title or description contains `match`). Only public domain or CC BY / CC BY-SA images are used, and the credit is
+added to the caption automatically. Prefer US government photos (public domain). If nothing fits, leave it out
+and the video uses a plain background. Never use a photo that misrepresents the place.
+
 ## 3. Write days/DATE.json
 
 ```json

@@ -61,6 +61,58 @@ def validate(day):
         sys.exit("Day file problems:\n  " + "\n  ".join(errs))
 
 
+OK_LICENSES = ("public domain", "pd", "cc0", "cc by", "cc-by")
+
+
+def fetch_photo(day, work):
+    """Background photo for the 'photo' style, from Wikimedia Commons, license-checked.
+    day["photo"] = {"file": "File:Name.jpg"} or {"query": "Mar-a-Lago aerial", "match": "Mar-a-Lago"}.
+    Returns (path, credit) or (None, None); the renderer falls back to a plain navy background."""
+    import html
+    import urllib.parse
+    import urllib.request
+    ph = day.get("photo") or {}
+    if not ph:
+        return None, None
+    api = "https://commons.wikimedia.org/w/api.php?"
+    ua = {"User-Agent": "trumpsday-render/1.0 (https://github.com/jck-bllli/trumps-day)"}
+
+    def get(params):
+        req = urllib.request.Request(api + urllib.parse.urlencode(dict(params, format="json")), headers=ua)
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.loads(r.read())
+
+    base = dict(action="query", prop="imageinfo", iiprop="url|extmetadata", iiurlwidth=1600)
+    try:
+        if ph.get("file"):
+            pages = get(dict(base, titles=ph["file"]))["query"]["pages"].values()
+        else:
+            pages = get(dict(base, generator="search", gsrsearch=ph["query"], gsrnamespace=6, gsrlimit=10)
+                        ).get("query", {}).get("pages", {}).values()
+            pages = sorted(pages, key=lambda p: p.get("index", 99))
+        for pg in pages:
+            info = (pg.get("imageinfo") or [{}])[0]
+            meta = info.get("extmetadata", {})
+            lic = meta.get("LicenseShortName", {}).get("value", "")
+            title = pg.get("title", "")
+            if not lic.lower().startswith(OK_LICENSES) or not title.lower().endswith((".jpg", ".jpeg", ".png")):
+                continue
+            if ph.get("match") and ph["match"].lower() not in (title + meta.get("ImageDescription", {}).get("value", "")).lower():
+                continue
+            url = info.get("thumburl") or info.get("url")
+            path = os.path.join(work, "photo" + os.path.splitext(url)[1][:5])
+            with urllib.request.urlopen(urllib.request.Request(url, headers=ua), timeout=60) as r:
+                open(path, "wb").write(r.read())
+            artist = re.sub("<[^>]+>", "", html.unescape(meta.get("Artist", {}).get("value", ""))).strip()
+            credit = f"{artist or 'Wikimedia Commons'}, {lic}, via Wikimedia Commons"
+            print(f"Photo: {title} ({lic})")
+            return path, credit
+        print("No photo with an allowed license matched; using the plain background.")
+    except Exception as e:
+        print(f"Photo fetch failed ({e}); using the plain background.")
+    return None, None
+
+
 def split(day):
     """Morning post gets the first half of the quotes, evening post the rest (3 or fewer quotes: morning only)."""
     qs = day["quotes"]
@@ -94,11 +146,16 @@ def main():
     qpath = os.path.join(ROOT, "queue.json")
     queue = json.load(open(qpath, encoding="utf-8")) if os.path.exists(qpath) else []
     styles = {}
+    photo_path, photo_credit = None, None
     for slot, qs in split(day):
         pid = f"{day['date']}-{slot}"
         style = make_styled.pick_style(day["date"], slot)
         styles[slot] = style
         post = dict(date=day["date"], slot=slot, style=style, quotes=qs, day_log=day.get("day_log", {}))
+        if style == "photo":
+            if photo_path is None:
+                photo_path, photo_credit = fetch_photo(day, work)
+            post.update(photo_path=photo_path, photo_credit=photo_credit)
         ppath = os.path.join(work, f"{pid}.json")
         json.dump(post, open(ppath, "w", encoding="utf-8"), ensure_ascii=False)
         out = os.path.join(work, f"{pid}.mp4")

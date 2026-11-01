@@ -25,7 +25,7 @@ from make_video import say  # same narrator voice as the daily recap
 
 W, H, FPS, SR = 1080, 1920, 30, 48000
 FD = os.path.join(HERE, "fonts")
-STYLES = ("transcript", "tabloid", "poll")
+STYLES = ("transcript", "tabloid", "poll", "photo")
 _f = {}
 
 
@@ -49,13 +49,16 @@ SKIN = {
     "poll": dict(bg=None, ink=(15, 15, 15), dim=(110, 110, 110), accent=(15, 15, 15),
                  qfont=PLAY, qsize=76, upper=False, align="center", grain=0.05,
                  cta="Fair or too far?", opt_fill=(250, 248, 242), opt_ink=(15, 15, 15)),
+    "photo": dict(bg=(20, 30, 70), ink=(255, 255, 255), dim=(150, 160, 200), accent=(255, 214, 10),
+                  qfont="Merri900.woff", qsize=96, upper=False, align="center", grain=0.03,
+                  cta="Fair point or too far?", opt_fill=(255, 255, 255), opt_ink=(15, 15, 15)),
 }
 GAME_TITLE = {"topic": "WHAT WAS HE TALKING ABOUT?", "blank": "FINISH THE QUOTE", "number": "GUESS THE NUMBER"}
 
 
 def pick_style(date, slot):
     n = dt.date.fromisoformat(date).toordinal() * 2 + (slot == "pm")
-    return STYLES[n % 3]
+    return STYLES[n % len(STYLES)]
 
 
 # ---------------- quote tokens (typing, highlight, blank) ----------------
@@ -102,6 +105,96 @@ def layout(toks, f, maxw, upper):
 
 
 # ---------------- backgrounds ----------------
+def photo_bgs(path):
+    """[sharp, blurred] backgrounds from the post's photo (or a navy gradient when there is none)."""
+    from PIL import ImageFilter
+    img = None
+    if path and os.path.exists(path):
+        try:
+            img = Image.open(path).convert("RGB")
+        except Exception:
+            img = None
+    if img is None:
+        img = Image.new("RGB", (W, H), (20, 30, 70))
+    sc = max(W / img.width, H / img.height)
+    img = img.resize((int(img.width * sc) + 1, int(img.height * sc) + 1), Image.LANCZOS)
+    l, t = (img.width - W) // 2, (img.height - H) // 2
+    img = img.crop((l, t, l + W, t + H))
+
+    def shade(im, top, bottom):
+        grad = Image.linear_gradient("L").resize((W, H))
+        grad = grad.point(lambda v: int(255 * (top + (bottom - top) * v / 255)))
+        return Image.composite(Image.new("RGB", (W, H), (8, 14, 40)), im, grad)
+    return [shade(img, 0.45, 0.85), shade(img.filter(ImageFilter.GaussianBlur(14)), 0.6, 0.9)]
+
+
+def draw_photo(bgs, grain, st):
+    """Photo style: real photo behind, karaoke words (spoken white, current yellow, upcoming dim)."""
+    sk = SKIN["photo"]
+    im = bgs[min(st.get("qi", 0), 1)].copy()
+    d = ImageDraw.Draw(im)
+    pf = font(FRANK, 38)
+    kw = d.textlength(st["kicker"], font=pf)
+    d.rounded_rectangle((W / 2 - kw / 2 - 26, 140, W / 2 + kw / 2 + 26, 200), 30, fill=(225, 40, 50))
+    d.text((W / 2, 170), st["kicker"], font=pf, fill="white", anchor="mm")
+    if st["title"]:
+        d.text((W / 2, 280), st["title"], font=font(FRANK, 56), fill=sk["accent"], anchor="mm")
+    f, lines, toks = st["f"], st["lines"], st["toks"]
+    lh = int(f.size * 1.25)
+    y = 430 if st["options"] else 560
+    space = f.getlength(" ")
+    for line in lines:
+        lw = sum(w for _, _, w in line) + space * (len(line) - 1)
+        x = (W - lw) / 2
+        for k, shown, ww in line:
+            _, hl, bl = toks[k]
+            col = sk["ink"] if k < st["shown"] - 1 or st["shown"] >= len(toks) else (
+                sk["accent"] if k == st["shown"] - 1 else sk["dim"])
+            if hl and k < st["shown"]:
+                col = sk["accent"]
+            if bl and not st["reveal"]:
+                bw = max(ww, f.getlength("______"))
+                d.line((x, y + f.size * 1.1, x + bw, y + f.size * 1.1), fill=col, width=8)
+                x += bw + space
+                continue
+            if bl and st["reveal"]:
+                col = sk["accent"]
+            d.text((x, y), shown, font=f, fill=col)
+            x += ww + space
+        y += lh
+    if st["shown"] >= len(toks) and st["attribution"]:
+        d.text((W / 2, y + 30), st["attribution"], font=font(FRANK, 44), fill=(200, 210, 235), anchor="ma")
+        y += 110
+    if st["options"]:
+        oy = y + 40
+        of = font(INTER, 52)
+        for i, o in enumerate(st["options"]):
+            p = min(1.0, max(0.0, (st["opt_t"] - i * 0.12) / 0.25))
+            if p <= 0:
+                continue
+            dx = int((1 - p) ** 3 * 300)
+            right, wrong = st["reveal"] and i == st["answer"], st["reveal"] and i != st["answer"]
+            fill = sk["accent"] if right else ((120, 125, 150) if wrong else (255, 255, 255))
+            d.rounded_rectangle((90 + dx, oy, W - 90 + dx, oy + 110), 55, fill=fill)
+            d.text((130 + dx, oy + 55), f"{'ABC'[i]}   {o}", font=of, fill=(15, 15, 15), anchor="lm")
+            oy += 135
+        if st["timer"] is not None:
+            d.rounded_rectangle((90, oy + 10, 90 + int((W - 180) * (1 - st["timer"])), oy + 22), 6, fill=sk["accent"])
+    if st["cta"]:
+        im = bgs[0].copy()
+        d = ImageDraw.Draw(im)
+        d.text((W / 2, 640), st["end_title"], font=font("Merri900.woff", 110), fill="white", anchor="mm")
+        d.text((W / 2, 820), st["cta"], font=font(INTER, 72), fill=sk["accent"], anchor="mm")
+        d.text((W / 2, 930), "Sources in the caption. Tell us below.", font=font(FRANK, 46), fill=(200, 210, 235), anchor="mm")
+    if LOGO:
+        im.paste(LOGO, (W - 160, 1720), LOGO)
+    return Image.blend(im, grain, sk["grain"])
+
+
+_logo_path = os.path.join(HERE, "..", "brand", "pfp_E.png")
+LOGO = Image.open(_logo_path).convert("RGBA").resize((110, 110)) if os.path.exists(_logo_path) else None
+
+
 def make_bg(style):
     if style == "poll":
         im = Image.new("RGB", (W, H))
@@ -124,6 +217,8 @@ def grains(n=4):
 
 # ---------------- frame drawing ----------------
 def draw_frame(style, bg, grain, st):
+    if style == "photo":
+        return draw_photo(bg, grain, st)
     """st: kicker, title, toks, lines, f, shown (words visible), reveal, options, answer, timer (0..1 or None),
     attribution, cta (str or None), opt_t (time since options appeared)."""
     sk = SKIN[style]
@@ -293,7 +388,7 @@ def build(post):
         kicker = f"{d0:%b} {d0.day}  ·  {q['where']}".upper()
         title = GAME_TITLE.get(game.get("type"))
         attribution = "Donald Trump"
-        base = dict(style=style, kicker=kicker, title=title, toks=toks, lines=lines, f=f,
+        base = dict(style=style, qi=qi, end_title=f"That was {d0:%b} {d0.day}.", kicker=kicker, title=title, toks=toks, lines=lines, f=f,
                     options=None, answer=game.get("answer"), timer=None, reveal=False, opt_t=0,
                     attribution=attribution, cta=None)
         fx.append((t, thud()))
@@ -375,6 +470,8 @@ def caption(post, style):
             if sp.get("transcript"):
                 lines.append(f"   Transcript: {sp['transcript']}")
     lines.append("\U0001F517 Every transcript, video and post: link in bio")
+    if style == "photo" and post.get("photo_credit"):
+        lines.append(f"\U0001F4F7 Photo: {post['photo_credit']}")
     lines += ["", "Quotes are word for word. Unofficial recap, not affiliated with Donald Trump or the White House.",
               "", "#trump #donaldtrump #politics #news #quotes"]
     cap = "\n".join(lines)
@@ -406,7 +503,8 @@ def main(post_path, out):
     wav = os.path.join(td, "a.wav")
     sf.write(wav, np.column_stack([mix, mix]).astype(np.float32), SR)
 
-    bg, gr = make_bg(style), grains()
+    bg = photo_bgs(post.get("photo_path")) if style == "photo" else make_bg(style)
+    gr = grains()
     proc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                              "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", wav,
                              "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p",
