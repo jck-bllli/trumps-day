@@ -1,6 +1,8 @@
 # Daily research job: Trump's day in 6 quotes (two posts)
 
-The daily scheduled task follows this file. It covers **yesterday, as a calendar day in US Eastern time** (call it DATE).
+The daily scheduled task follows this file. **This file wins over the task prompt:** if the prompt says "3 to 5
+quotes", that is outdated. Pick 6 (4 or 5 on a quiet day), make about two of every three into mini-games, and in
+your message to Jack list each quote's game. It covers **yesterday, as a calendar day in US Eastern time** (call it DATE).
 
 ## 1. Find everything he said on DATE
 
