@@ -10,6 +10,10 @@ on:
         description: "Test only: render the newest day to a temp folder and attach it to the run (commits and posts nothing)"
         type: boolean
         default: false
+      day:
+        description: "Test only: day file to render (default: the newest in days/)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -60,12 +64,15 @@ jobs:
 
       - name: Test render (commits and posts nothing)
         if: inputs.test
+        env:
+          DAY: ${{ inputs.day }}
         run: |
-          day=$(ls days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json | sort | tail -1)
+          day="$DAY"
+          [ -n "$day" ] || day=$(ls days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json | sort | tail -1)
           start=$(date +%s)
           python produce.py "$day" --dry-run | tee test.log
-          out=$(sed -n 's/^Dry run done: //p' test.log)
-          mkdir -p test-render && cp "$out" test-render/
+          mkdir -p test-render
+          sed -n 's/^Dry run done: \([^ ]*\).*/\1/p' test.log | while read -r out; do cp "$out" "${out%.mp4}"_cover.jpg test-render/ 2>/dev/null || cp "$out" test-render/; done
           echo "Test render of $day took $(( $(date +%s) - start ))s on the home PC." >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
@@ -84,7 +91,7 @@ jobs:
         run: |
           git config user.name "trumpsday-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add videos queue.json
+          git add videos queue.json days
           git commit -m "Render ${{ steps.render.outputs.rendered }} on home PC"
           git pull --rebase --autostash
           git push

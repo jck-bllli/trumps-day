@@ -1,4 +1,4 @@
-# Daily research job: Trump's day in 5 quotes
+# Daily research job: Trump's day in 6 quotes (two posts)
 
 The daily scheduled task follows this file. It covers **yesterday, as a calendar day in US Eastern time** (call it DATE).
 
@@ -13,7 +13,7 @@ Search the web (several searches, sent together) for:
 
 For each event, record a title, a transcript link and a video link when they exist.
 
-## 2. Pick 5 quotes
+## 2. Pick 6 quotes (morning post gets quotes 1-3, evening post gets 4-6)
 
 The vibe: **people can like him or hate him from the quotes, and both sides want to comment.** Pick lines that are
 surprising, funny, boastful, bold, or sharp jabs at opponents. Avoid dry policy lines unless they're punchy.
@@ -30,8 +30,25 @@ Hard rules:
   anything about deaths, shootings, disasters or other tragedies; threats of violence; claims about a person's
   health. These clash with the playful sound effects and get accounts reported.
 - Jabs at opponents, nicknames, boasts and tall claims are fine. We present, we don't judge: no commentary.
-- If a day is quiet, 3 or 4 strong quotes beat 5 weak ones (the video adapts). If he made no public remarks,
+- Interesting beats important. The best quote makes someone stop scrolling and want to argue in the comments:
+  a bold claim, a strange comparison, a jab, a boast, a line that sounds made up but is real. Skip filler.
+- Order matters: quote 1 and quote 4 open each post, so put the two strongest there.
+- If a day is quiet, 4 or 5 strong quotes beat 6 weak ones (5 = 3 morning + 2 evening; 3 or fewer = morning only). If he made no public remarks,
   quotes can come from posts (`where`: "Truth Social post").
+
+## 2b. Turn some quotes into mini-games
+
+Each post rotates through a visual style automatically. Inside it, make about two of every three quotes a game
+(mix the types within a post; a plain quote is fine too). The joke is in the game, never in commentary.
+- `topic`: "What was he talking about?" Viewers see the quote, then 3 options for the topic. Use when the
+  real context is surprising. The reveal is spoken from `intro_say`, so write `intro_say` as the answer.
+- `blank`: "Finish the quote." One key word or phrase is hidden. `blank` must appear exactly once in the quote,
+  and the right option must equal `blank` exactly.
+- `number`: same as blank, but the hidden part is a number (`"blank": "$25 trillion"`). The number must not
+  appear anywhere else in the quote, or it gives the answer away. Add `"blank_say"` if the voice needs words.
+Wrong options must be plausible but clearly wrong, real-sounding, and never invented quotes or claims about
+anyone. Options are 28 characters max. `answer` is 0, 1 or 2 (vary it).
+- Optional `highlight`: an exact piece of the quote (2 to 6 words) to mark in red, the most striking part.
 
 ## 3. Write days/DATE.json
 
@@ -50,7 +67,18 @@ Hard rules:
       "sfx": "ding",
       "sources": ["https://full-transcript-url", "https://news-report-url"],
       "said_before": true,
-      "said_before_note": "First floated in September 2026"
+      "said_before_note": "First floated in September 2026",
+      "highlight": "the Trump Strait"
+    },
+    {
+      "topic": "ON THE NEW ARCH",
+      "emoji": "🏛️",
+      "where": "Remarks · Palm Beach, Florida",
+      "quote": "The arch is going to be more beautiful than the Arc de Triomphe.",
+      "intro_say": "On his planned arch in Washington.",
+      "sfx": "whoosh_up",
+      "sources": ["https://..."],
+      "game": {"type": "blank", "blank": "Arc de Triomphe", "options": ["Eiffel Tower", "Taj Mahal", "Arc de Triomphe"], "answer": 2}
     }
   ],
   "day_log": {
@@ -63,7 +91,7 @@ Hard rules:
 ```
 
 Field notes:
-- `intro_say` / `outro_say`: say the real number ("in four quotes") when there are fewer than 5.
+- `intro_say` / `outro_say` at the top level are kept for the receipts page; the videos don't use them.
 - `topic`: "ON ..." in caps, 26 characters max. `where`: 40 characters max, format "Type · City, State".
 - `quote`: 190 characters max. Add `"quote_say"` only if the voice would misread something (numbers like
   "51st" → "fifty-first", abbreviations, symbols). The screen always shows `quote`.
@@ -84,6 +112,7 @@ python3 -c "import json,produce; produce.validate(json.load(open('days/DATE.json
 Fix anything the validator reports. Do not render: Jack's home PC does that.
 
 Commit only `days/DATE.json`, then `git pull --rebase` and push to main. The push starts `render.yml` on the
-home PC, which renders the video, adds it to queue.json and starts the post workflow. If the PC is offline, the
+home PC, which renders both videos, adds them to queue.json and starts the post workflow. The morning post goes
+out right away; the evening post waits until 4:17pm Pacific. If the PC is offline, the
 8:23am PT backup run renders in the cloud and posts. Do not post to Instagram yourself, and don't edit
 posted.json, queue.json, the workflows or secrets.

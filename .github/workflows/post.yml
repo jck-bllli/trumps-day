@@ -1,11 +1,13 @@
-name: Post daily recap
+name: Post recaps (morning + evening)
 
 on:
   push:
     branches: [main]
     paths: ["queue.json", "check_now.txt"]   # new day in queue.json -> post; editing check_now.txt -> test run only
   schedule:
-    - cron: "23 15 * * *"        # backup: 15:23 UTC (8:23am PT / 11:23am ET) posts anything still waiting and refreshes the page
+    - cron: "23 15 * * *"        # backup: 15:23 UTC (7:23am PST) posts the morning post if the render-triggered run missed it
+    - cron: "17 0 * * *"         # evening post: 00:17 UTC (4:17pm PST / 7:17pm EST), once its post_after time has passed
+    - cron: "47 1 * * *"         # evening backup in case GitHub skips the run above
   workflow_dispatch:
     inputs:
       mode:
@@ -58,7 +60,7 @@ jobs:
           python render_next.py
           git config user.name "trumpsday-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add videos queue.json
+          git add videos queue.json days
           git commit -m "Backup render in the cloud"
           git pull --rebase --autostash
           git push   # the video must be on GitHub before Instagram can fetch it
