@@ -430,7 +430,7 @@ def build(post):
     nxt = "Part two tonight." if post.get("slot", "am") == "am" else "More tomorrow morning."
     e = say(f"{cta} {nxt}")
     clips.append((t + 0.2, e))
-    last = dict(events[-1][2], cta=cta, options=None, reveal=False)
+    last = dict(events[-1][2], cta=cta, options=None, reveal=True)
     fx.append((t, thud()))
     events.append((t, t + 0.2 + len(e) / SR + 1.2, last, None, None))
     total = t + 0.2 + len(e) / SR + 1.2
