@@ -1,0 +1,35 @@
+name: Otto style report
+
+on:
+  schedule:
+    - cron: "17 15 * * 1"   # Mondays ~8am PT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: otto
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rank our styles by attention
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: python otto/styles.py
+      - name: Save report
+        run: |
+          git config user.name "otto-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add otto/report.md otto/stats.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Otto style report"
+          git pull --rebase --autostash
+          git push
