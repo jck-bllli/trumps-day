@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-01",
+  "intro_say": "Trump's day, in six quotes. Let's go!",
+  "outro_say": "Love it or hate it, every speech and post from today is linked in the caption. Follow for tomorrow's quotes!",
+  "photo": {"query": "Dubuque Iowa", "match": "Dubuque"},
+  "quotes": [
+    {
+      "topic": "ON CHINA SPYING",
+      "emoji": "🕵️",
+      "where": "Rally · Dubuque, Iowa",
+      "quote": "Somebody said, \"China's spying on us, sir.\" I said, \"Yeah, and we're spying on them too. Don't worry about it.\"",
+      "intro_say": "On China.",
+      "sfx": "drumroll",
+      "sources": ["https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/",
+                  "https://foxnews.com/live-news/midterm-elections-2026-trump-iowa-kansas-november-1"],
+      "highlight": "we're spying on them too",
+      "game": {"type": "blank", "blank": "spying on them too", "options": ["spying on them too", "hacking them back", "buying their soybeans"], "answer": 0}
+    },
+    {
+      "topic": "ON A MYSTERY TARGET",
+      "emoji": "🪰",
+      "where": "Rally · Dubuque, Iowa",
+      "quote": "They're like a gnat. They're like a little fly.",
+      "intro_say": "On protesters at his rally.",
+      "sfx": "boing",
+      "sources": ["https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/",
+                  "https://www.kcrg.com/2026/11/02/trump-addresses-iran-war-gas-prices-dubuque-rally-3-protesters-removed/"],
+      "game": {"type": "topic", "options": ["The news media", "Rally protesters", "Wind turbines"], "answer": 1}
+    },
+    {
+      "topic": "ON THE MIDTERMS",
+      "emoji": "🗳️",
+      "where": "Rally · Dubuque, Iowa",
+      "quote": "And pretend I'm on the ballot because, essentially, I am on the ballot.",
+      "intro_say": "On Tuesday's midterm elections.",
+      "sfx": "cheer",
+      "sources": ["https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/",
+                  "https://www.kcrg.com/2026/11/02/trump-addresses-iran-war-gas-prices-dubuque-rally-3-protesters-removed/"],
+      "said_before": true,
+      "said_before_note": "A similar line was a staple of his 2018 midterm rallies",
+      "highlight": "I am on the ballot"
+    },
+    {
+      "topic": "ON HIS LAST RALLY",
+      "emoji": "😴",
+      "where": "Rally · Salina, Kansas",
+      "quote": "I'm getting out of here. I got to get a little sleep. I've been doing a little too many of these.",
+      "intro_say": "On wrapping up the final rally of his midterm tour.",
+      "sfx": "drumroll",
+      "sources": ["https://www.thedailybeast.com/trump-80-closes-rallies-with-telling-reveal",
+                  "https://www.nbcnews.com/politics/2026-election/trump-final-rally-28-stop-midterm-blitz-election-day-kansas-rcna606941"],
+      "highlight": "a little too many of these"
+    },
+    {
+      "topic": "ON MIKE ROGERS",
+      "emoji": "🥧",
+      "where": "Rally · Dubuque, Iowa",
+      "quote": "Mike Rogers is apple pie.",
+      "intro_say": "On Mike Rogers, the Republican Senate candidate in Michigan.",
+      "sfx": "applause",
+      "sources": ["https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/"],
+      "game": {"type": "blank", "blank": "apple pie", "options": ["the real deal", "a rock star", "apple pie"], "answer": 2}
+    },
+    {
+      "topic": "ON GAS PRICES",
+      "emoji": "⛽",
+      "where": "Rally · Dubuque, Iowa",
+      "quote": "By the way, when that war ends, you're gonna see gasoline coming down. It was $1.85 in Iowa.",
+      "quote_say": "By the way, when that war ends, you're gonna see gasoline coming down. It was a dollar eighty-five in Iowa.",
+      "intro_say": "And on gas prices, and the war with Iran.",
+      "sfx": "cash",
+      "sources": ["https://rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/",
+                  "https://www.kcrg.com/2026/11/02/trump-addresses-iran-war-gas-prices-dubuque-rally-3-protesters-removed/"],
+      "game": {"type": "number", "blank": "$1.85", "blank_say": "a dollar eighty-five", "options": ["$2.99", "$1.85", "$0.99"], "answer": 1}
+    }
+  ],
+  "day_log": {
+    "speeches": [
+      {"title": "Midterm rally in Dubuque, Iowa", "transcript": "rollcall.com/factbase/trump/transcript/donald-trump-speech-midterm-political-rally-dubuque-iowa-november-1-2026/", "video": "tommyxtopher.substack.com/p/trump-iowa-rally-november-1-2026"},
+      {"title": "Final midterm rally in Salina, Kansas", "transcript": "", "video": "kwch.com/video/2026/11/01/watch-live-president-trump-speaks-midterm-rally-salina-kansas/"}
+    ]
+  }
+}
