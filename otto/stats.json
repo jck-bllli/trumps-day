@@ -1,0 +1,130 @@
+{
+ "median_views": 73,
+ "styles": [
+  {
+   "style": "poll",
+   "posts": 1,
+   "median_views": 144,
+   "avg_outlier": 1.97,
+   "median_eng_rate": 0.0,
+   "shares": 0,
+   "saves": 0
+  },
+  {
+   "style": "sticker",
+   "posts": 6,
+   "median_views": 55.5,
+   "avg_outlier": 1.08,
+   "median_eng_rate": 0.0,
+   "shares": 0,
+   "saves": 2
+  }
+ ],
+ "posts": [
+  {
+   "id": "2026-10-27",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfDCuBrATxD/",
+   "posted_at": "2026-10-28T18:10:13Z",
+   "views": 2,
+   "reach": 1,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 0,
+   "outlier": 0.03,
+   "eng_rate": 0.0
+  },
+  {
+   "id": "2026-10-28",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfESji0jkLX/",
+   "posted_at": "2026-10-29T05:47:37Z",
+   "views": 38,
+   "reach": 33,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 1,
+   "total_interactions": 1,
+   "outlier": 0.52,
+   "eng_rate": 0.0303
+  },
+  {
+   "id": "2026-10-29-silent",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfIwiVzCqdK/",
+   "posted_at": "2026-10-30T23:26:36Z",
+   "views": 21,
+   "reach": 19,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 0,
+   "outlier": 0.29,
+   "eng_rate": 0.0
+  },
+  {
+   "id": "2026-10-29",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfI8HrKilAe/",
+   "posted_at": "2026-10-31T01:07:44Z",
+   "views": 192,
+   "reach": 180,
+   "likes": 1,
+   "comments": 0,
+   "shares": 0,
+   "saved": 1,
+   "total_interactions": 2,
+   "outlier": 2.63,
+   "eng_rate": 0.0111
+  },
+  {
+   "id": "2026-10-30",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfKmqKAiCmk/",
+   "posted_at": "2026-10-31T16:39:01Z",
+   "views": 73,
+   "reach": 69,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 0,
+   "outlier": 1.0,
+   "eng_rate": 0.0
+  },
+  {
+   "id": "2026-10-31",
+   "style": "sticker",
+   "permalink": "https://www.instagram.com/reel/DfMyIGSjfj3/",
+   "posted_at": "2026-11-01T12:57:36Z",
+   "views": 148,
+   "reach": 135,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 0,
+   "outlier": 2.03,
+   "eng_rate": 0.0
+  },
+  {
+   "id": "2026-11-01-am",
+   "style": "poll",
+   "permalink": "https://www.instagram.com/reel/DfPW8XCio8d/",
+   "posted_at": "2026-11-02T12:57:40Z",
+   "views": 144,
+   "reach": 115,
+   "likes": 0,
+   "comments": 0,
+   "shares": 0,
+   "saved": 0,
+   "total_interactions": 0,
+   "outlier": 1.97,
+   "eng_rate": 0.0
+  }
+ ]
+}
