@@ -139,5 +139,10 @@
       "trumpstruth.org/statuses/43482",
       "trumpstruth.org/statuses/43484"
     ]
-  }
+  },
+  "styles": {
+    "am": "poll",
+    "pm": "photo"
+  },
+  "style": "poll"
 }
