@@ -145,7 +145,7 @@ def main():
     work = tempfile.mkdtemp(prefix="trumpsday_")
     qpath = os.path.join(ROOT, "queue.json")
     queue = json.load(open(qpath, encoding="utf-8")) if os.path.exists(qpath) else []
-    styles = {}
+    styles, voices = {}, {}
     photo_path, photo_credit = None, None
     jobs = [(slot, qs, make_styled.pick_style(day["date"], slot)) for slot, qs in split(day)]
     if dry and "--all-styles" in sys.argv:  # test renders: every style once, alternating halves
@@ -154,7 +154,10 @@ def main():
     for slot, qs, style in jobs:
         pid = f"{day['date']}-{slot}-{style}" if dry else f"{day['date']}-{slot}"
         styles[slot] = style
-        post = dict(date=day["date"], slot=slot, style=style, quotes=qs, day_log=day.get("day_log", {}))
+        from chatterbox_voice import voice_for
+        voice = voice_for(d.toordinal() * 2 + (slot == "pm"))  # both posts of a day share a voice, next day swaps
+        voices[slot] = voice
+        post = dict(date=day["date"], slot=slot, style=style, voice=voice, quotes=qs, day_log=day.get("day_log", {}))
         if style == "photo":
             if photo_path is None:
                 photo_path, photo_credit = fetch_photo(day, work)
@@ -177,7 +180,7 @@ def main():
         # (4:15pm Pacific standard time on the day the morning post went out)
         after = None if slot == "am" else f"{d + dt.timedelta(days=2)}T00:15:00Z"
         queue = [q for q in queue if q["id"] != pid]
-        queue.append({"id": pid, "video": vid, "cover": cover, "caption": caption, "style": style,
+        queue.append({"id": pid, "video": vid, "cover": cover, "caption": caption, "style": style, "voice": voice,
                       "post_after": after, "thumb_offset_ms": 3000})
     if dry:
         return
@@ -186,6 +189,7 @@ def main():
     # tag the day file with each post's style (the Otto comparison reads "style"; "styles" has both slots)
     day["styles"] = styles
     day["style"] = styles["am"]
+    day["voices"] = voices
     json.dump(day, open(path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     print("Queued", ", ".join(f"{day['date']}-{s} ({st})" for s, st in styles.items()))
 
