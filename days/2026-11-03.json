@@ -1,0 +1,143 @@
+{
+  "date": "2026-11-03",
+  "intro_say": "Trump's day, in six quotes. Let's go!",
+  "outro_say": "Love it or hate it, every post from today is linked in the caption. Follow for tomorrow's quotes!",
+  "photo": {
+    "query": "White House north facade",
+    "match": "White House"
+  },
+  "quotes": [
+    {
+      "topic": "ON THE MIDTERM RESULTS",
+      "emoji": "🗳️",
+      "where": "Truth Social post",
+      "quote": "I wasn't on the Ballot and if I was, we would have won IN A LANDSLIDE!",
+      "intro_say": "On election night, as Democrats won races across the country.",
+      "sfx": "drumroll",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43480",
+        "https://vinnews.com/2026/11/03/trump-if-i-was-on-the-ballot-we-would-have-won-in-a-landslide/",
+        "https://www.forbes.com/sites/antoniopequenoiv/2026/11/03/trump-claims-republicans-would-have-won-midterms-if-he-were-on-the-ballot/"
+      ],
+      "said_before": true,
+      "said_before_note": "He posted a similar line after the November 2025 elections",
+      "highlight": "IN A LANDSLIDE",
+      "game": {
+        "type": "blank",
+        "blank": "IN A LANDSLIDE",
+        "options": [
+          "BY A MILE",
+          "IN A LANDSLIDE",
+          "EVERY STATE"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "topic": "ON THE FOX NEWS POLL",
+      "emoji": "📊",
+      "where": "Truth Social post",
+      "quote": "The FoxNews Poll, always the worst, is so insulting with the questions they ask.",
+      "intro_say": "On the Fox News poll.",
+      "sfx": "boing",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43441",
+        "https://www.forbes.com/sites/antoniopequenoiv/2026/11/03/trump-repeatedly-bashes-fox-news-in-election-night-posting-rants/"
+      ],
+      "game": {
+        "type": "blank",
+        "blank": "always the worst",
+        "options": [
+          "always the worst",
+          "totally rigged",
+          "a total joke"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "topic": "ON GREG ABBOTT",
+      "emoji": "🤠",
+      "where": "Truth Social post",
+      "quote": "If Greg Abbott, the Governor of Texas, hadn't become a RINO in the last six months of his Political Life, he wouldn't have lost. He went back to his original formula, and it wasn't pretty!",
+      "intro_say": "On Texas Governor Greg Abbott losing his race.",
+      "sfx": "gavel",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43481",
+        "https://www.aninews.in/news/world/us/if-greg-abbott-hadnt-become-a-rino-he-wouldnt-have-lost-donald-trump-on-texas-governors-defeat16020261104174405/"
+      ],
+      "highlight": "it wasn't pretty"
+    },
+    {
+      "topic": "ON HIS NEXT CAREER",
+      "emoji": "🎙️",
+      "where": "Truth Social post",
+      "quote": "I'm going to become a Political Pundit, both good and bad, on the reasons these Candidates won and lost!",
+      "intro_say": "On what he plans to do after the results.",
+      "sfx": "whoosh_up",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43482",
+        "https://forbes.com/sites/antoniopequenoiv/2026/11/03/trump-says-he-is-willing-to-accept-election-results-as-democrat-sweep-looms-report-says"
+      ],
+      "game": {
+        "type": "blank",
+        "blank": "Political Pundit",
+        "options": [
+          "Campaign Coach",
+          "Political Pundit",
+          "TV Anchor"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "topic": "ON FOX NEWS RATINGS",
+      "emoji": "📺",
+      "where": "Truth Social post",
+      "quote": "FoxNews Ratings are way down (27%!) because they're spending too much time covering the Trump Deranged Dumocrats!",
+      "quote_say": "Fox News Ratings are way down, twenty-seven percent, because they're spending too much time covering the Trump Deranged Dumocrats!",
+      "intro_say": "On Fox News ratings.",
+      "sfx": "cash",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43438",
+        "https://www.forbes.com/sites/antoniopequenoiv/2026/11/03/trump-repeatedly-bashes-fox-news-in-election-night-posting-rants/"
+      ],
+      "highlight": "Trump Deranged Dumocrats",
+      "game": {
+        "type": "number",
+        "blank": "27%",
+        "blank_say": "twenty-seven percent",
+        "options": [
+          "50%",
+          "12%",
+          "27%"
+        ],
+        "answer": 2
+      }
+    },
+    {
+      "topic": "ON BILL DE BLASIO",
+      "emoji": "🗽",
+      "where": "Truth Social post",
+      "quote": "Why does FoxNews have Bill de Blasio, the Worst Mayor in the History of New York City, on air, ranting and raving like a Lunatic?",
+      "intro_say": "And on former New York City Mayor Bill de Blasio appearing on Fox News.",
+      "sfx": "boing",
+      "sources": [
+        "https://www.trumpstruth.org/statuses/43484"
+      ],
+      "highlight": "the Worst Mayor"
+    }
+  ],
+  "day_log": {
+    "speeches": [],
+    "posts": [
+      "trumpstruth.org/statuses/43442",
+      "trumpstruth.org/statuses/43441",
+      "trumpstruth.org/statuses/43438",
+      "trumpstruth.org/statuses/43480",
+      "trumpstruth.org/statuses/43481",
+      "trumpstruth.org/statuses/43482",
+      "trumpstruth.org/statuses/43484"
+    ]
+  }
+}
