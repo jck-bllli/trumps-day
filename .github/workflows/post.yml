@@ -43,7 +43,9 @@ jobs:
           import glob, json, os, sys
           days = sorted(glob.glob("days/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].json"))
           queued = {q["id"] for q in json.load(open("queue.json"))}
-          need = bool(days) and os.path.basename(days[-1])[:-5] not in queued
+          newest = os.path.basename(days[-1])[:-5] if days else ""
+          # twice-daily ids look like DATE-am / DATE-pm, so match those too
+          need = bool(days) and newest not in queued and f"{newest}-am" not in queued
           open(os.environ["GITHUB_OUTPUT"], "a").write(f"need={'yes' if need else ''}\n")
           EOF
 
@@ -61,9 +63,11 @@ jobs:
           git config user.name "trumpsday-bot"
           git config user.email "actions@users.noreply.github.com"
           git add videos queue.json days
-          git commit -m "Backup render in the cloud"
-          git pull --rebase --autostash
-          git push   # the video must be on GitHub before Instagram can fetch it
+          if ! git diff --cached --quiet; then
+            git commit -m "Backup render in the cloud"
+            git pull --rebase --autostash
+            git push   # the video must be on GitHub before Instagram can fetch it
+          fi
 
       - name: Build the receipts page (every speech + post)
         continue-on-error: true
