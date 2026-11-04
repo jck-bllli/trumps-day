@@ -21,7 +21,13 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from make_video import say  # same narrator voice as the daily recap
+import chatterbox_voice
+
+VOICE = {"name": "turbo"}  # set per post in main()
+
+
+def say(text, speed=None):
+    return chatterbox_voice.say(text, VOICE["name"])
 
 W, H, FPS, SR = 1080, 1920, 30, 48000
 FD = os.path.join(HERE, "fonts")
@@ -483,6 +489,7 @@ def caption(post, style):
 
 def main(post_path, out):
     post = json.load(open(post_path, encoding="utf-8"))
+    VOICE["name"] = post.get("voice") or "turbo"
     style, events, clips, fx, total = build(post)
     n_s = int(SR * (total + 1))
     vo, sfxb = np.zeros(n_s), np.zeros(n_s)

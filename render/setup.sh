@@ -5,6 +5,8 @@ set -e
 cd "$(dirname "$0")"
 pip install --break-system-packages -q kokoro-onnx soundfile scipy pillow numpy 2>/dev/null \
   || pip install -q kokoro-onnx soundfile scipy pillow numpy
+# Chatterbox narrator voices (large first install: torch + models)
+python -c "import chatterbox" 2>/dev/null || pip install -q chatterbox-tts
 mkdir -p tts_model
 for f in kokoro-v1.0.onnx voices-v1.0.bin; do
   [ -s "tts_model/$f" ] || curl -sSL --max-time 600 -o "tts_model/$f" \
