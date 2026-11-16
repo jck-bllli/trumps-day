@@ -1,26 +1,28 @@
-# Otto plan, week of 2026-11-09 (@trumpsaidtoday)
+# Otto plan, week of 2026-11-16 (@trumpsaidtoday)
 
-Source: otto/report.md (7 posts, median 73 views). No otto/outliers.md, so no competitor input this week.
+Source: otto/report.md (9 posts, median 149 views). No otto/outliers.md, so no competitor input this week.
 
 ## (a) What won
-- poll: 1 post, median 144 views, 1.97x. Still testing (1 post).
-- sticker: 6 posts, median 55.5 views, 1.08x. Only style with 3+ posts, but it is the weaker of the two so far.
-- Best single posts: 192 views and 148 views, both sticker (2.63x, 2.03x). So sticker has wide spread.
-- Poll leads sticker by about 2.6x on median, but poll is one post. Too small to trust.
-- Engagement near zero (0 shares, 2 saves). Views are the only usable signal.
+- sticker: 6 posts, median 56.5 views, 0.54x avg outlier. Only style with 3+ posts, and the weakest so far.
+- poll: 2 posts, median 243.5 views, 1.64x. Still testing (2 posts). Best two posts overall are both poll (262 and 225 views).
+- photo: 1 post, 213 views, 1.43x. Still testing (1 post).
+- Poll and photo lead sticker by roughly 4x on median, but with 2 and 1 posts it is too small to trust.
+- Engagement near zero (0 shares, 3 saves total). Views are the only usable signal.
 
 ## (b) Next week's style mix
-- No proven winner, so do not go 60/40 yet.
-- Run poll on about half the posts so it reaches 3+ quickly, sticker on the rest. Keep the "style" tag on every post.
-- If poll holds above sticker after 3 posts, move to 60% poll, 40% rotation.
-- When possible, use the same day's quotes in both styles on alternating days for a fair comparison.
+- No proven winner, so no 60/40 yet.
+- Lean toward poll and photo (about 4 of 7 posts each week combined) so both reach 3+ fast, and keep sticker at about 3 as the baseline.
+- If poll or photo holds above sticker after 3 posts, move to 60% that style, 40% rotation.
+- Where possible, run the same day's quotes in two styles on alternating days.
+- Keep the "style" tag on every post.
 
 ## (c) Original ideas (neutral, no outlier data this week)
 1. "Which of these did he say?" Hook: "One of these is real. Pick."
 2. Word counter. Hook: "The word he used most today."
-3. Quote vs date. Hook: "Guess the day this was said."
+3. Guess the day. Hook: "Which day was this said?"
 4. Same topic, two days apart. Hook: "What changed between Monday and Friday."
 Real, verified, word for word quotes only. Decoys in any quiz must also be real and sourced.
 
 ## (d) Needs Jack's OK before posting
-- The "Did he say it?" quiz format and the older-audience variant are still mockups. They need Jack's go before anything posts.
+- The "Did he say it?" quiz and the older-audience variant are still mockups and need Jack's go.
+- No competitor watchlist exists in this repo yet, so the finder has nothing to study.
