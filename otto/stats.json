@@ -4,7 +4,7 @@
   {
    "style": "poll",
    "posts": 2,
-   "median_views": 243.5,
+   "median_views": 244.0,
    "avg_outlier": 1.64,
    "median_eng_rate": 0.0,
    "shares": 0,
@@ -13,8 +13,8 @@
   {
    "style": "photo",
    "posts": 1,
-   "median_views": 213,
-   "avg_outlier": 1.43,
+   "median_views": 214,
+   "avg_outlier": 1.44,
    "median_eng_rate": 0.0051,
    "shares": 0,
    "saves": 1
@@ -140,14 +140,14 @@
    "style": "poll",
    "permalink": "https://www.instagram.com/reel/DfUpJpMlcZT/",
    "posted_at": "2026-11-04T14:12:53Z",
-   "views": 262,
-   "reach": 213,
+   "views": 263,
+   "reach": 214,
    "likes": 0,
    "comments": 0,
    "shares": 0,
    "saved": 0,
    "total_interactions": 0,
-   "outlier": 1.76,
+   "outlier": 1.77,
    "eng_rate": 0.0
   },
   {
@@ -155,14 +155,14 @@
    "style": "photo",
    "permalink": "https://www.instagram.com/reel/DfWcGDVjM6a/",
    "posted_at": "2026-11-05T06:57:18Z",
-   "views": 213,
-   "reach": 195,
+   "views": 214,
+   "reach": 196,
    "likes": 0,
    "comments": 0,
    "shares": 0,
    "saved": 1,
    "total_interactions": 1,
-   "outlier": 1.43,
+   "outlier": 1.44,
    "eng_rate": 0.0051
   }
  ]
