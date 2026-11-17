@@ -1,0 +1,49 @@
+name: Gather sources on home PC
+
+on:
+  schedule:
+    - cron: "20 12 * * *"   # 4:20am PT, before the 4:47am PT research task
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Day to gather (YYYY-MM-DD, default yesterday US Eastern)"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gather
+  cancel-in-progress: false
+
+jobs:
+  gather:
+    runs-on: [self-hosted, render-pc]   # the home PC has open web access; the cloud research session does not
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: C:\PROGRA~1\Git\bin\bash.exe --noprofile --norc -eo pipefail {0}
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          clean: false
+
+      - name: Fetch sources
+        env:
+          DAY: ${{ inputs.day }}
+        run: |
+          python research/gather.py $DAY | tee probe.log
+          { echo '### Source probe'; echo '```'; cat probe.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit the gathered text
+        run: |
+          git config user.name "trumpsday-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add research
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -m "Gather sources"
+          git pull --rebase --autostash
+          git push
