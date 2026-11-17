@@ -4,6 +4,14 @@ The daily scheduled task follows this file. **This file wins over the task promp
 quotes", that is outdated. Pick 6 (4 or 5 on a quiet day), make about two of every three into mini-games, and in
 your message to Jack list each quote's game. It covers **yesterday, as a calendar day in US Eastern time** (call it DATE).
 
+> **SOURCES (added 2026-11-17):** the cloud session cannot open most news and transcript sites. Jack's home PC
+> gathers them first (workflow `gather.yml`, 4:20am PT) into `research/DATE/` (`_probe.txt` lists what was reachable;
+> `wh_*` White House remarks and statements, `trumpstruth_*` Truth Social posts, `transcripts_*` Roll Call Factba.se
+> calendar and transcript pages). `git pull`, read `research/DATE/` first, then WebSearch for the rest. If the folder
+> is missing, start `gather.yml` on main (input `day`=DATE) with the GitHub actions_run_trigger tool, wait a few
+> minutes, pull again. The calendar page shows what he did that day; a travel day with no public remarks is a valid
+> skip. If you still cannot verify enough quotes word for word, skip the day and name the missing sources. Do not commit `research/`.
+
 ## 1. Find everything he said on DATE
 
 Search the web (several searches, sent together) for:

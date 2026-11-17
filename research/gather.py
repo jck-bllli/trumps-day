@@ -72,8 +72,10 @@ def main():
             save(f"{label}_{i:02d}.txt", u)
 
     # Truth Social archive (front pages; the posts carry their own dates)
-    for p in range(1, 5):
-        save(f"trumpstruth_p{p}.txt", f"https://trumpstruth.org/?page={p}")
+    raw = save("trumpstruth_front.txt", "https://trumpstruth.org/")
+    ids = list(dict.fromkeys(re.findall(r'href="(https://trumpstruth\.org/statuses/\d+)"', raw)))
+    for i, u in enumerate(ids[:60]):
+        save(f"trumpstruth_post_{i:02d}.txt", u)
 
     # Roll Call Factba.se and transcript sites (index pages; may need a search to find the item)
     for i, u in enumerate((
