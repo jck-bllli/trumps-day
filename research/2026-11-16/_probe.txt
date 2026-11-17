@@ -11,10 +11,7 @@ Gathered for 2026-11-16
 200    4508 chars  https://www.whitehouse.gov/briefings-statements/2026/11/presidential-message-on-the-birthday-of-the-united-states-marine-corps/
 200    4359 chars  https://www.whitehouse.gov/briefings-statements/2026/11/presidential-message-on-victory-day-for-world-war-i-dd1e/
 200    5194 chars  https://www.whitehouse.gov/briefings-statements/2026/11/quad-leaders-summit-joint-press-release/
-200    4050 chars  https://trumpstruth.org/?page=1
-200    4050 chars  https://trumpstruth.org/?page=2
-200    4050 chars  https://trumpstruth.org/?page=3
-200    4050 chars  https://trumpstruth.org/?page=4
+200    4050 chars  https://trumpstruth.org/
 200   49275 chars  https://rollcall.com/factbase/trump/topic/calendar/
 200    1130 chars  https://rollcall.com/factbase/trump/search/?type=transcript
 200    6874 chars  https://www.rev.com/transcripts
