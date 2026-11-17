@@ -73,7 +73,7 @@ def main():
 
     # Truth Social archive (front pages; the posts carry their own dates)
     raw = save("trumpstruth_front.txt", "https://trumpstruth.org/")
-    ids = list(dict.fromkeys(re.findall(r'href="(https://trumpstruth\.org/statuses/\d+)"', raw)))
+    ids = ["https://trumpstruth.org/statuses/" + i for i in dict.fromkeys(re.findall(r'/statuses/(\d+)', raw))]
     for i, u in enumerate(ids[:60]):
         save(f"trumpstruth_post_{i:02d}.txt", u)
 
