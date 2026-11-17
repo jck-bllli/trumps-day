@@ -69,5 +69,15 @@
     "style": "photo",
     "post_after": "2026-11-05T00:15:00Z",
     "thumb_offset_ms": 3000
+  },
+  {
+    "id": "2026-11-16-am",
+    "video": "videos/2026-11-16-am.mp4",
+    "cover": "videos/2026-11-16-am_cover.jpg",
+    "caption": "What Trump said on Monday, November 16 (part 1 of 2) 🇺🇸\nFair point or too far? Tell us below 👇\n\n1. “The new people running 60 Minutes are even worse than their predecessors.”\n   📍 Truth Social post\n2. “Citizens in Blue States like New York have been paying 3X-7X more for Natural Gas due to the costly Anti-Energy Policies pushed by Blue State Governors and Political leaders.”\n   📍 Truth Social post\n3. “New Businesses created in America have reached ALL-TIME HIGHS — Over 500,000 new Businesses formed every month this year.”\n   📍 Truth Social post\n🔗 Every transcript, video and post: link in bio\n\nQuotes are word for word. Unofficial recap, not affiliated with Donald Trump or the White House.\n\n#trump #donaldtrump #politics #news #quotes",
+    "style": "transcript",
+    "voice": "turbo",
+    "post_after": null,
+    "thumb_offset_ms": 3000
   }
 ]
