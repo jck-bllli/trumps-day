@@ -1,0 +1,64 @@
+{
+ "date": "2026-11-16",
+ "intro_say": "Trump's day, in three quotes. Let's go!",
+ "outro_say": "Love it or hate it, every post from today is linked in the caption. Follow for tomorrow's quotes!",
+ "photo": {
+  "query": "White House north facade",
+  "match": "White House"
+ },
+ "quotes": [
+  {
+   "topic": "ON 60 MINUTES",
+   "emoji": "📺",
+   "where": "Truth Social post",
+   "quote": "The new people running 60 Minutes are even worse than their predecessors.",
+   "intro_say": "On the new leadership at 60 Minutes.",
+   "sfx": "boing",
+   "sources": [
+    "https://trumpstruth.org/statuses/43603"
+   ],
+   "highlight": "even worse than their predecessors"
+  },
+  {
+   "topic": "ON ENERGY PRICES",
+   "emoji": "⛽",
+   "where": "Truth Social post",
+   "quote": "Citizens in Blue States like New York have been paying 3X-7X more for Natural Gas due to the costly Anti-Energy Policies pushed by Blue State Governors and Political leaders.",
+   "intro_say": "On natural gas prices in New York.",
+   "sfx": "cash",
+   "sources": [
+    "https://trumpstruth.org/statuses/43607"
+   ],
+   "highlight": "3X-7X more"
+  },
+  {
+   "topic": "ON NEW BUSINESSES",
+   "emoji": "🏪",
+   "where": "Truth Social post",
+   "quote": "New Businesses created in America have reached ALL-TIME HIGHS — Over 500,000 new Businesses formed every month this year.",
+   "intro_say": "On small business.",
+   "sfx": "cheer",
+   "sources": [
+    "https://trumpstruth.org/statuses/43608"
+   ],
+   "game": {
+    "type": "number",
+    "blank": "500,000",
+    "options": [
+     "50,000",
+     "500,000",
+     "5 million"
+    ],
+    "answer": 1
+   }
+  }
+ ],
+ "day_log": {
+  "speeches": [],
+  "posts": [
+   "trumpstruth.org/statuses/43603",
+   "trumpstruth.org/statuses/43607",
+   "trumpstruth.org/statuses/43608"
+  ]
+ }
+}
